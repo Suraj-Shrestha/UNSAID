@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Xeon | OnePage Responsive Theme</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+        #page {
+            position: relative;
+            top: 80px;
+            left: 100px;
+            z-index: 0;
+        }
+        
+        .txt {
+            font-size: 30px;
+            color: black;
+            text-align: left;
+            line-height: 200%;
+            letter-spacing: 14%;
+            font-family: arial, courier, sans-serif;
+            font-style: normal;
+        }
+        
+        #timerClock,
+        #values {
+            font-size: 0px;
+            opacity: 0.0;
+            width: 5px;
+        }
+        
+        .txtNormal {
+            font-size: 20px;
+            font-weight: 200;
+            color: inherit;
+            font-family: "Times New Roman", Helvetica, Arial, sans-serif;
+            ;
+            font-style: normal;
+        }
+        
+        #btnContinue {
+            position: relative;
+            top: 130px;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        #goBack {
+            position: relative;
+            top: 180px;
+            left: -100px;
+            display: block;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<!--/head-->
+
+<body data-spy="scroll" data-target="#navbar" data-offset="0" screen_capture_injected="true">
+    <div class="container">
+
+        <header id="header" role="banner">
+
+            <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#main-slider"><i class="icon-home"></i></a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <!--<li><a href="" id="link" onclick = "testing()">Download Here</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </header>
+    </div>
+    <!--/#header-->
+
+    <div id="txt" class="jumbotron">
+        <br/>
+        <p id="first" class="txtNormal">
+             Årsaken til at Olsvik, som jobber ved UiT, tar til ordet for å innføre en antibiotikamerking av kjøttprodukter er at mange land har store problemer med at sykehuspasienter smittes av antibiotikaresistente bakterier.Der brukes mellom 70 og 80 prosent av all antibiotika i matproduksjon. Bakterier som finnes i dyr blir resistente mot antibiotikumet de får. Disse resistensegenskapene overføres da til bakterier som gjør mennesker syke, og så kan vi få infeksjoner vi ikke kan behandle, forklarer Olsvik.
+            <br/>
+        </p>
+        <p id="timerClock">reset</p>
+        <p id="values">Hmmm....</p>
+
+
+        <button id="btnContinue" type="button" name="btnContinue" onclick="confirmHere()">Continue</button>
+
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../node_modules/waypoints/lib/jquery.waypoints.min.js"></script>
+
+    <!-- Concuss.js and Canvas utilities -->
+    <script src="/xeon/webgazer.js/build/webgazer.js"></script>
+    <script>
+        window.onload = function() {
+            //clearing the localStroage value.
+            window.localStorage.clear();
+            console.log("I am clearing the old localStorage!!")
+
+            //Setting time
+            var display = document.querySelector('#timerClock');
+            var milliseconds = (new Date).getTime();
+            display.textContent = milliseconds;
+
+
+            webgazer.setRegression('ridge') /* currently must set regression and tracker */
+                .setTracker('clmtrackr')
+                .setGazeListener(function(data, clock) {
+                    //  console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
+                    //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */       
+                })
+                .begin()
+                .showPredictionPoints(true); /* shows a square every 100 milliseconds where current prediction is */
+
+            var width = 400;
+            var height = 400;
+            var topDist = '0px';
+            var leftDist = '0px';
+
+            var setup = function() {
+                var video = document.getElementById('webgazerVideoFeed');
+                video.style.display = 'block';
+                video.style.position = 'fixed';
+                video.style.top = topDist;
+                video.style.left = leftDist;
+                video.width = width;
+                video.height = height;
+                video.style.margin = '0px';
+                video.style.zIndex = '-1';
+
+
+                webgazer.params.imgWidth = width;
+                webgazer.params.imgHeight = height;
+
+                var test = webgazer.getElapsedTime();
+                console.log("Test:" + test);
+
+                var overlay = document.createElement('canvas');
+                overlay.id = 'overlay';
+                overlay.style.position = 'fixed';
+                overlay.width = width;
+                overlay.height = height;
+                overlay.style.top = topDist;
+                overlay.style.left = leftDist;
+                overlay.style.margin = '0';
+
+                document.body.appendChild(overlay);
+
+                var cl = webgazer.getTracker().clm;
+
+                function drawLoop() {
+                    requestAnimFrame(drawLoop);
+                    overlay.getContext('2d').clearRect(0, 0, width, height);
+                    if (cl.getCurrentPosition()) {
+                        cl.draw(overlay);
+
+                    }
+                }
+                drawLoop();
+            };
+
+            function checkIfReady() {
+                if (webgazer.isReady()) {
+                    setup();
+                } else {
+                    setTimeout(checkIfReady, 100);
+                }
+            }
+            setTimeout(checkIfReady, 100);
+        };
+
+
+
+        function SaveDataAndCalculate() {
+            alert("Testing started. Data will be stored!");
+            var XValues = window.localStorage.getItem("X");
+            var YValues = window.localStorage.getItem("Y");
+
+            var content = "";
+
+            content += "XValues: " + XValues + "\n";
+            content += "YValues: " + YValues + "\n";
+
+            uri = "data:application/octet-stream," + encodeURIComponent(content);
+            location.href = uri;
+
+            var xArr = XValues.split(",");
+            var yArr = YValues.split(",");
+
+            function Point(x, y) {
+                this.x = x;
+                this.y = y;
+            };
+            Point.prototype.equals = function(toCompare) {
+                return this.x == toCompare.x && this.y == toCompare.y;
+            };
+
+            function PointCounter(x, y, counter) {
+                this.x = this.x;
+                this.y = this.y;
+                this.counter = counter;
+            };
+
+            var pointArr = [];
+
+            for (var i = 0; i < xArr.length; i++) {
+                if (xArr[i] != 0 || yArr[i] != 0) {
+                    var x = parseInt(xArr[i]);
+                    var y = parseInt(yArr[i]);
+                    pointArr.push(new Point(x, y));
+                }
+            }
+
+            var len = pointArr.length;
+            //object created for the X and Y values
+            /*THIS ARRAY WILL STORE THE FINAL POINTS WITH COUNTS...*/
+            var finalCountArray = [];
+            var counts = 0;
+            //This is the Threshold value
+            var threshold = 1001;
+            var threshold_second = 13800;
+            //This is the time taken value, that is in second:millisecond format... :)
+            var timeTakenValue = document.querySelector("#values").innerHTML;
+
+
+            for (var j = 0; j < len; j++) {
+                counts = 0;
+                for (var k = j + 1; k < len; k++) {
+                    //   console.log("Comparing : "+ pointArr[j].x +","+ pointArr[j].y +" TO "+ pointArr[k].x+","+pointArr[k].y)
+
+                    if (pointArr[j].equals(pointArr[k])) {
+                        //  counts.push(pointArr[j].x , pointArr[j].y);
+                        counts++;
+                    } //end of if...
+
+                } //end of inner loop
+                if (pointArr[j].x != NaN || pointArr[j].y != NaN)
+                    finalCountArray.push(new PointCounter(pointArr[j].x, pointArr[j].y, counts));
+                console.log("Total Count for " + pointArr[j].x + "," + pointArr[j].y + " is " + counts);
+
+                console.log("Threshold_Second is : " + threshold_second + " and the timeTakenValue : " + parseInt(timeTakenValue));
+
+
+                if ((counts >= threshold) && (parseInt(timeTakenValue) >= threshold_second)) {
+                    //changer();
+                    return true;
+
+                } //end of threshold check if...
+
+            } //end of outer loop
+
+            //Removing the duplicates...
+            console.log("Total FinalCountArray size is : " + finalCountArray.length);
+            return false;
+
+        } //end of testing funtion...
+
+        //OnButtonPress (Continue) , this starts...
+        function confirmHere() {
+
+            //Getting the exact value of the text
+            var myValue = document.querySelector("#timerClock").innerHTML;
+            document.querySelector('#values').innerHTML = calculateDifference(parseInt(myValue));
+            var milliseconds = (new Date).getTime();
+            document.querySelector("#timerClock").innerHTML = milliseconds;
+            
+            function calculateDifference(oldValue) {
+                var milliseconds = (new Date).getTime();
+                var difference = milliseconds - oldValue;
+                return difference;
+            };
+
+            function customizerConfirm() {
+                return (confirm("Do you want to make the text more readable?"));
+            }
+
+            function nextConfirm() {
+                if (confirm("Press Ok to change the text or Press Cancel")) {
+                    changeText();
+                } else {
+                    console.log("Canceled pressed by user!");
+                }
+            }
+
+            //store the data, return false if the threshold is not crossed , true if otherwise..
+            if (SaveDataAndCalculate()) {
+                if (customizerConfirm()) {
+                    document.getElementById("first").setAttribute("class", "txt");
+                    setTimeout(function() {
+                        nextConfirm();
+                    }, 100);
+
+                } else {
+                    alert("No Changes Needed!");
+                    nextConfirm();
+                }
+
+            } else {
+                nextConfirm();
+            }
+
+            //now Clearing the old datavalues...  
+            window.localStorage.clear();
+        } //end of ConfirmHere Method...
+
+
+
+        var nextText = (function() {
+            var textArr = ["Når tregrensen kryper høyere og høyere i fjellet, følger hytteutbyggerne etter. Stadig flere hytter bygges på snaufjellet. Og nye, høytliggende områder er under utbygging. Noen ringer faktisk for å spørre om vi har tomter som ligger høyere enn 1000 meter over havet, og da pleier jeg ofte å si: «Nei, det har vi ikke akkurat nå, men vi har på 980 meters høyde, om det kan friste», forteller Åshild Reien.Hun er daglig leder i Norske Fjellhytter.", 
+                           
+                           "Paret kjøpte leiligheten for tre år siden. Da de gikk i gang med innredning, ble Baxter inspirert av de mange interiørbildene hun fant på nett og Instagram.Det var også da hun selv opprettet sin egen konto og begynte å dele bilder fra sitt eget hjem.Nå har det som startet i det små, utviklet seg stort, og 28-åringen nærmer seg 90.000 følgere.Jeg er veldig overrasket over hvor mange følgere jeg har fått, sier Baxter",
+                           
+                          "Paret hadde kjørt forbi eiendommen mange ganger med båt og tenkt: Hvis den noensinne kommer for salg, kjøper vi den. Og så, i 2011, var den plutselig det.Drømmetomten, helt nede ved vannkanten på Nesodden, kom med et gammelt trehus med en grunnflate på cirka 50 kvadratmeter, uten vann og kloakk eller trapp innvendig.I tillegg sto det et skrøpelig anneks der, som hadde blitt brukt som sjøbod og til å koke fiskegarn, og et lite badehus.",
+                           
+                           "I flere måneder har han forberedt deltakelsen i en stor, samisk håndverksutstilling under Tråante - jubileumsfeiringen av det første samiske landsmøtet.33 duodjiutøvere fra hele Sápmi er invitert til å bidra til utstillingen, som åpner i Trondheim førstkommende mandag. Asle Tveitnes fra Kåfjord var en av dem som fikk invitasjon i september.Jeg satte veldig stor pris på å bli invitert. Det var et bevis på at hobbyen min er interessant for andre også, sier Tveitnes til NRK."
+            ];
+            var count = -1;
+            return function() {
+                return textArr[++count % textArr.length];
+            }
+        }());
+
+        function changeText(fontSize) {
+            var elem = document.getElementById("first");
+            elem.innerHTML = nextText();
+            document.getElementById('first').setAttribute("class", "txtNormal");
+        }
+
+
+
+        window.onbeforeunload = function() {
+            //get all the values from the localStorage ... and save it to the file.
+            //IF possible save it as xls. format..for excel support.
+            // window.webkitRequestFileSystem(window.PERSISTENT,  2*1024*1024, SaveFile);
+            //             
+            ////            XValues = window.localStorage.getItem("X",prevX);
+            ////            YValues = window.localStorage.getItem("Y",prevY);
+            ////             var XYArr = [XValues.toString(), YValues.toString()];
+            //            
+            //                    
+            //               function SaveFile(localstorage){
+            //                 
+            //         }
+            webgazer.end();
+        }
+
+
+        //webgazer.end(); //Uncomment if you want to save the data even if you reload the page.
+        // window.localStorage.clear(); //Comment out if you want to save data across different sessions
+
+    </script>
+</body>
+
+</html>

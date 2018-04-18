@@ -1,0 +1,27 @@
+/* --------------------------------------
+   Media Queries
+   -------------------------------------- */
+
+/* Portrait & landscape phone */
+@media (min-width: 480px) {
+
+    .jumbotron {
+        height: 500px;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (min-width: 768px) {
+
+    .jumbotron{
+        height: 500px;
+    }
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+
+    .jumbotron{
+        height: 500px;
+    }
+}
